@@ -59,7 +59,7 @@ export function Header() {
 
 export function Footer() {
   const { pathname } = useLocation();
-  const showAppointmentCta = pathname !== '/contact';
+  const showAppointmentCta = !['/contact', '/privacy', '/terms'].includes(pathname);
 
   return <footer>
     {showAppointmentCta && <div className="footer-cta">
@@ -72,7 +72,7 @@ export function Footer() {
       <div className="footer-contact"><h4>Hablemos</h4><a href={`tel:${business.phone}`}><Phone/><span><small>Teléfono</small>{business.phone}</span></a><a href={generalWhatsApp}><MessageCircle/><span><small>WhatsApp</small>Escribir al equipo</span></a><a href={`mailto:${business.email}`}><Mail/><span><small>Correo</small>{business.email}</span></a></div>
       <div className="footer-hours"><h4>Visítanos</h4><div><MapPin/><span>{business.address}<br/>{business.city}</span></div><div><Clock3/><span>{business.openingHours.map(item => <small key={item}>{item}</small>)}<small className="emergency-hours">{business.emergencyHours}</small></span></div></div>
     </div>
-    <div className="footer-bottom"><span>© 2026 Alma Vet. Información educativa; no sustituye una consulta veterinaria.</span><span>Privacidad · Términos</span></div>
+    <div className="footer-bottom"><span>© 2026 Alma Vet. Información educativa; no sustituye una consulta veterinaria.</span><nav className="footer-legal" aria-label="Información legal"><Link to="/privacy">Privacidad y seguridad</Link><Link to="/terms">Términos de uso</Link></nav></div>
     <div className="mobile-actions"><a href={`tel:${business.phone}`}><Phone/>Llamar</a><a href={generalWhatsApp}><MessageCircle/>WhatsApp</a></div>
   </footer>;
 }
