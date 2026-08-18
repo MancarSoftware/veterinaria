@@ -15,7 +15,10 @@ export const team=[
 export const facilities=[
  ['Consulta tranquila','https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1400&q=85'],
  ['Diagnóstico moderno','https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1400&q=85'],
- ['Recuperación vigilada','https://images.unsplash.com/photo-1516841273335-e39b37888115?auto=format&fit=crop&w=1400&q=85']
+ ['Recuperación vigilada','https://images.unsplash.com/photo-1516841273335-e39b37888115?auto=format&fit=crop&w=1400&q=85'],
+ ['Atención cercana','https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=1400&q=85'],
+ ['Equipo especializado','https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1400&q=85'],
+ ['Bienestar felino','https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=1400&q=85']
 ];
 export const articles=[
  {title:'Vacunas: una conversación que empieza con su estilo de vida',cat:'Prevención',img:'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=900&q=80'},
