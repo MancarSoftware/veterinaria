@@ -157,3 +157,5 @@ footer{position:relative;border-top:0;background:var(--black);color:white}.foote
 .contact-appointment{grid-template-columns:.82fr 1.18fr}.contact-appointment .appointment{width:100%;height:100%;padding:55px 58px;border:1px solid #d4dde5;border-top:6px solid var(--red);border-radius:0 18px 18px 0;background:#f8f9fb;box-shadow:0 24px 60px #102c4617}.contact-appointment .form-heading{padding-bottom:25px;margin-bottom:24px}.contact-appointment .form-heading h2{max-width:620px;font-size:clamp(2.2rem,3.15vw,3.55rem)}.contact-appointment .appointment>.button{border-radius:7px}.contact-appointment .fine{max-width:520px}
 @media(max-width:1000px){.contact-appointment{grid-template-columns:1fr}.contact-appointment .appointment{height:auto;padding:50px;border-radius:0 0 18px 18px}}
 @media(max-width:620px){.contact-appointment .appointment{padding:38px 22px;border-radius:0 0 15px 15px}.contact-appointment .form-heading h2{font-size:2.2rem}}
+
+#appointment{scroll-margin-top:70px}

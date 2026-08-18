@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Activity, ArrowRight, Clock3, Mail, MapPin, Menu, MessageCircle, Phone, X } from 'lucide-react';
 import { business } from '../config/business';
 import { generalWhatsApp } from '../utils/whatsapp';
@@ -8,6 +8,26 @@ const links = [
   ['/', 'Inicio'], ['/services', 'Servicios'], ['/team', 'Equipo'],
   ['/facilities', 'Espacios'], ['/pet-care', 'Cuidados'], ['/contact', 'Contacto'],
 ];
+
+function ScrollManager() {
+  const { pathname, hash, key } = useLocation();
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      if (hash) {
+        const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+        if (target) {
+          target.scrollIntoView({ block: 'start', behavior: 'auto' });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [pathname, hash, key]);
+
+  return null;
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -38,11 +58,14 @@ export function Header() {
 }
 
 export function Footer() {
+  const { pathname } = useLocation();
+  const showAppointmentCta = pathname !== '/contact';
+
   return <footer>
-    <div className="footer-cta">
+    {showAppointmentCta && <div className="footer-cta">
       <div><span>Tu mascota merece atención clara y cercana</span><h2>¿Listos para su próxima visita?</h2></div>
       <Link className="footer-cta-link" to="/contact#appointment">Solicitar una cita <ArrowRight/></Link>
-    </div>
+    </div>}
     <div className="footer-main">
       <div className="footer-brand"><div className="logo light"><span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b></div><p>{business.tagline}<br/>Cuidamos la salud y el vínculo que comparten.</p><div className="social"><a href={business.socials.instagram} target="_blank" rel="noreferrer">Instagram <ArrowRight/></a><a href={business.socials.facebook} target="_blank" rel="noreferrer">Facebook <ArrowRight/></a></div></div>
       <div className="footer-nav"><h4>Explora</h4>{links.slice(1).map(([to, label]) => <Link to={to} key={to}>{label}<ArrowRight/></Link>)}</div>
@@ -55,5 +78,5 @@ export function Footer() {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <><Header/><main>{children}</main><Footer/></>;
+  return <><ScrollManager/><Header/><main>{children}</main><Footer/></>;
 }
