@@ -9,6 +9,18 @@ const links = [
   ['/facilities', 'Espacios'], ['/pet-care', 'Cuidados'], ['/contact', 'Contacto'],
 ];
 
+function TikTokIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.6 3c.3 2.5 1.8 4 4.4 4.2v3.1a8.1 8.1 0 0 1-4.4-1.4v6.2a6.1 6.1 0 1 1-5.3-6V12a3.1 3.1 0 1 0 2.2 3V3h3.1Z" fill="currentColor" stroke="none"/></svg>;
+}
+
+function InstagramIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>;
+}
+
+function FacebookIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.3 21v-8h2.8l.4-3h-3.2V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V10H8v3h2.9v8h3.4Z" fill="currentColor" stroke="none"/></svg>;
+}
+
 function ScrollManager() {
   const { pathname, hash, key } = useLocation();
 
@@ -67,7 +79,7 @@ export function Footer() {
       <Link className="footer-cta-link" to="/contact#appointment">Solicitar una cita <ArrowRight/></Link>
     </div>}
     <div className="footer-main">
-      <div className="footer-brand"><div className="logo light"><span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b></div><p>{business.tagline}<br/>Cuidamos la salud y el vínculo que comparten.</p><div className="social"><a href={business.socials.instagram} target="_blank" rel="noreferrer">Instagram <ArrowRight/></a><a href={business.socials.facebook} target="_blank" rel="noreferrer">Facebook <ArrowRight/></a></div></div>
+      <div className="footer-brand"><div className="logo light"><span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b></div><p>{business.tagline}<br/>Cuidamos la salud y el vínculo que comparten.</p><div className="social"><a href={business.socials.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><InstagramIcon/>Instagram</a><a href={business.socials.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"><FacebookIcon/>Facebook</a><a href={business.socials.tiktok} target="_blank" rel="noreferrer" aria-label="TikTok"><TikTokIcon/>TikTok</a></div></div>
       <div className="footer-nav"><h4>Explora</h4>{links.slice(1).map(([to, label]) => <Link to={to} key={to}>{label}<ArrowRight/></Link>)}</div>
       <div className="footer-contact"><h4>Hablemos</h4><a href={`tel:${business.phone}`}><Phone/><span><small>Teléfono</small>{business.phone}</span></a><a href={generalWhatsApp}><MessageCircle/><span><small>WhatsApp</small>Escribir al equipo</span></a><a href={`mailto:${business.email}`}><Mail/><span><small>Correo</small>{business.email}</span></a></div>
       <div className="footer-hours"><h4>Visítanos</h4><div><MapPin/><span>{business.address}<br/>{business.city}</span></div><div><Clock3/><span>{business.openingHours.map(item => <small key={item}>{item}</small>)}<small className="emergency-hours">{business.emergencyHours}</small></span></div></div>
