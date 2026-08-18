@@ -1,2 +1,38 @@
-import {FormEvent,useState} from 'react';import {CalendarDays,CheckCircle2,MessageCircle} from 'lucide-react';import {services} from '../data/content';import {whatsappUrl} from '../utils/whatsapp';
-export default function AppointmentForm(){const [errors,setErrors]=useState<Record<string,string>>({}),[sent,setSent]=useState(false);function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();const fd=new FormData(e.currentTarget),required=['owner','pet','type','service','date','time','phone'],next:Record<string,string>={};required.forEach(k=>{if(!fd.get(k))next[k]='Completa este campo'});setErrors(next);if(Object.keys(next).length)return;const msg=`Hola, quisiera solicitar una cita.\n\nPropietario: ${fd.get('owner')}\nMascota: ${fd.get('pet')}\nTipo: ${fd.get('type')}\nServicio: ${fd.get('service')}\nFecha preferida: ${fd.get('date')}\nHora preferida: ${fd.get('time')}\nTeléfono: ${fd.get('phone')}\nMensaje: ${fd.get('message')||'—'}`;setSent(true);window.open(whatsappUrl(msg),'_blank','noopener,noreferrer')};return <form className="appointment" onSubmit={submit} noValidate><div className="form-heading"><CalendarDays/><div><span className="eyebrow">Solicitud de cita</span><h2>Cuéntanos cómo podemos ayudar.</h2></div></div><div className="form-grid">{[['owner','Tu nombre','text'],['pet','Nombre de tu mascota','text'],['phone','Teléfono','tel'],['date','Fecha preferida','date'],['time','Hora preferida','time']].map(([n,l,t])=><label key={n}>{l}<input name={n} type={t} aria-invalid={!!errors[n]}/>{errors[n]&&<small>{errors[n]}</small>}</label>)}<label>Tipo de mascota<select name="type" defaultValue=""><option value="" disabled>Selecciona</option><option>Perro</option><option>Gato</option><option>Otra</option></select>{errors.type&&<small>{errors.type}</small>}</label><label>Servicio<select name="service" defaultValue=""><option value="" disabled>Selecciona</option>{services.map(s=><option key={s.slug}>{s.title}</option>)}</select>{errors.service&&<small>{errors.service}</small>}</label><label className="wide">Mensaje opcional<textarea name="message" rows={3} placeholder="Algo que debamos saber antes de la visita"/></label></div><button className="button" type="submit"><MessageCircle/> Solicitar por WhatsApp</button>{sent&&<p className="success"><CheckCircle2/> Solicitud preparada. Confírmala en WhatsApp.</p>}<p className="fine">Esto es una solicitud. El equipo confirmará la disponibilidad contigo.</p></form>}
+import { FormEvent, useState } from 'react';
+import { CalendarDays, CheckCircle2, MessageCircle } from 'lucide-react';
+import { services } from '../data/content';
+import { whatsappUrl } from '../utils/whatsapp';
+
+export default function AppointmentForm() {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sent, setSent] = useState(false);
+
+  function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const required = ['owner', 'pet', 'type', 'service', 'date', 'time', 'phone'];
+    const next: Record<string, string> = {};
+    required.forEach(k => { if (!fd.get(k)) next[k] = 'Completa este campo'; });
+    setErrors(next);
+    if (Object.keys(next).length) return;
+
+    const msg = `Hola, quisiera solicitar una cita.\n\nPropietario: ${fd.get('owner')}\nMascota: ${fd.get('pet')}\nTipo: ${fd.get('type')}\nServicio: ${fd.get('service')}\nFecha preferida: ${fd.get('date')}\nHora preferida: ${fd.get('time')}\nTeléfono: ${fd.get('phone')}\nMensaje: ${fd.get('message') || '—'}`;
+    setSent(true);
+    window.open(whatsappUrl(msg), '_blank', 'noopener,noreferrer');
+  }
+
+  return <form className="appointment" onSubmit={submit} noValidate>
+    <div className="form-heading"><CalendarDays/><div><span className="eyebrow">Solicitud de cita</span><h2>Cuéntanos cómo podemos ayudar.</h2></div></div>
+    <div className="form-grid">
+      {[['owner','Tu nombre','text'],['pet','Nombre de tu mascota','text'],['phone','Teléfono','tel'],['date','Fecha preferida','date'],['time','Hora preferida','time']].map(([n,l,t]) =>
+        <label key={n}>{l}<input name={n} type={t} inputMode={n === 'phone' ? 'numeric' : undefined} maxLength={n === 'phone' ? 10 : undefined} pattern={n === 'phone' ? '[0-9]{1,10}' : undefined} onInput={n === 'phone' ? e => { e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '').slice(0, 10); } : undefined} aria-invalid={!!errors[n]}/>{errors[n] && <small>{errors[n]}</small>}</label>
+      )}
+      <label>Tipo de mascota<select name="type" defaultValue=""><option value="" disabled>Selecciona</option><option>Perro</option><option>Gato</option><option>Otra</option></select>{errors.type && <small>{errors.type}</small>}</label>
+      <label>Servicio<select name="service" defaultValue=""><option value="" disabled>Selecciona</option>{services.map(s => <option key={s.slug}>{s.title}</option>)}</select>{errors.service && <small>{errors.service}</small>}</label>
+      <label className="wide">Mensaje opcional<textarea name="message" rows={3} placeholder="Algo que debamos saber antes de la visita"/></label>
+    </div>
+    <button className="button" type="submit"><MessageCircle/> Solicitar por WhatsApp</button>
+    {sent && <p className="success"><CheckCircle2/> Solicitud preparada. Confírmala en WhatsApp.</p>}
+    <p className="fine">Esto es una solicitud. El equipo confirmará la disponibilidad contigo.</p>
+  </form>;
+}
