@@ -32,12 +32,6 @@ export function Header() {
       <nav className={open ? 'open' : ''} aria-label="Navegación principal">
         {links.map(([to, label]) => <NavLink key={to} to={to} onClick={() => setOpen(false)}>{label}</NavLink>)}
       </nav>
-      <div className="header-actions">
-        <a className="nav-wa" href={generalWhatsApp} target="_blank" rel="noreferrer"><MessageCircle size={18}/><span>WhatsApp</span></a>
-        <Link className="button small header-appointment" to="/contact#appointment">
-          <span className="full-label">Agendar cita</span><span className="short-label">Cita</span>
-        </Link>
-      </div>
       <button className="menu" onClick={() => setOpen(!open)} aria-label={open ? 'Cerrar menú' : 'Abrir menú'}>{open ? <X/> : <Menu/>}</button>
     </header>
   </>;
