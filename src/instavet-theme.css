@@ -127,3 +127,7 @@ footer{position:relative;border-top:0;background:var(--black);color:white}.foote
 @media(max-width:1100px){.team-spotlight{grid-template-columns:minmax(300px,.55fr) minmax(0,1.45fr);padding-left:5vw;background:linear-gradient(90deg,#0b315e 0 37%,#eef1f4 37% 100%)}.team-spotlight .team-showcase-heading h2{font-size:clamp(2.75rem,4.4vw,3.65rem)}}
 @media(max-width:1000px){.team-spotlight{grid-template-columns:1fr;background:linear-gradient(180deg,#0b315e 0 315px,#eef1f4 315px 100%)}.team-spotlight .team-showcase-heading{max-width:none;padding-right:5vw}.team-spotlight .team-showcase-heading h2{max-width:540px;font-size:clamp(3rem,6vw,4.4rem)}}
 @media(max-width:620px){.team-spotlight{background:linear-gradient(180deg,#0b315e 0 390px,#eef1f4 390px 100%)}.team-spotlight .team-showcase-heading h2{font-size:2.7rem}}
+
+/* Prevent empty trailing space in the team loop */
+.team-spotlight .team-page-carousel{width:calc(100% - max(28px,5vw));margin-left:0;margin-right:max(28px,5vw);padding-right:0}.team-spotlight .team-page-carousel .swiper-slide{width:100%!important}
+@media(max-width:1000px){.team-spotlight .team-page-carousel{width:calc(100% - 5vw);margin-right:5vw;padding-right:0}}
