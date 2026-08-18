@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Activity, Menu, MessageCircle, Phone, X } from 'lucide-react';
+import { Activity, ArrowRight, Clock3, Mail, MapPin, Menu, MessageCircle, Phone, X } from 'lucide-react';
 import { business } from '../config/business';
 import { generalWhatsApp } from '../utils/whatsapp';
 
@@ -39,11 +39,15 @@ export function Header() {
 
 export function Footer() {
   return <footer>
+    <div className="footer-cta">
+      <div><span>Tu mascota merece atención clara y cercana</span><h2>¿Listos para su próxima visita?</h2></div>
+      <Link className="footer-cta-link" to="/contact#appointment">Solicitar una cita <ArrowRight/></Link>
+    </div>
     <div className="footer-main">
-      <div><div className="logo light"><span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b></div><p>{business.tagline}<br/>Cuidamos la salud y el vínculo que comparten.</p></div>
-      <div><h4>Explora</h4>{links.slice(1).map(([to, label]) => <Link to={to} key={to}>{label}</Link>)}</div>
-      <div><h4>Contacto</h4><a href={`tel:${business.phone}`}>{business.phone}</a><a href={generalWhatsApp}>WhatsApp</a><a href={`mailto:${business.email}`}>{business.email}</a><span>{business.address}<br/>{business.city}</span></div>
-      <div><h4>Horarios</h4>{business.openingHours.map(item => <span key={item}>{item}</span>)}<span>{business.emergencyHours}</span><div className="social"><a href={business.socials.instagram}>Instagram</a><a href={business.socials.facebook}>Facebook</a></div></div>
+      <div className="footer-brand"><div className="logo light"><span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b></div><p>{business.tagline}<br/>Cuidamos la salud y el vínculo que comparten.</p><div className="social"><a href={business.socials.instagram} target="_blank" rel="noreferrer">Instagram <ArrowRight/></a><a href={business.socials.facebook} target="_blank" rel="noreferrer">Facebook <ArrowRight/></a></div></div>
+      <div className="footer-nav"><h4>Explora</h4>{links.slice(1).map(([to, label]) => <Link to={to} key={to}>{label}<ArrowRight/></Link>)}</div>
+      <div className="footer-contact"><h4>Hablemos</h4><a href={`tel:${business.phone}`}><Phone/><span><small>Teléfono</small>{business.phone}</span></a><a href={generalWhatsApp}><MessageCircle/><span><small>WhatsApp</small>Escribir al equipo</span></a><a href={`mailto:${business.email}`}><Mail/><span><small>Correo</small>{business.email}</span></a></div>
+      <div className="footer-hours"><h4>Visítanos</h4><div><MapPin/><span>{business.address}<br/>{business.city}</span></div><div><Clock3/><span>{business.openingHours.map(item => <small key={item}>{item}</small>)}<small className="emergency-hours">{business.emergencyHours}</small></span></div></div>
     </div>
     <div className="footer-bottom"><span>© 2026 Alma Vet. Información educativa; no sustituye una consulta veterinaria.</span><span>Privacidad · Términos</span></div>
     <div className="mobile-actions"><a href={`tel:${business.phone}`}><Phone/>Llamar</a><a href={generalWhatsApp}><MessageCircle/>WhatsApp</a></div>
