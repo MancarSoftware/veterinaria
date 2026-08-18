@@ -1,2 +1,2 @@
-import React from 'react';import ReactDOM from 'react-dom/client';import {BrowserRouter} from 'react-router-dom';import 'swiper/css';import 'swiper/css/navigation';import './styles.css';import './instavet-theme.css';import App from './App';
+import React from 'react';import ReactDOM from 'react-dom/client';import {BrowserRouter} from 'react-router-dom';import 'swiper/css';import 'swiper/css/navigation';import 'swiper/css/pagination';import './styles.css';import './instavet-theme.css';import App from './App';
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><BrowserRouter><App/></BrowserRouter></React.StrictMode>);
