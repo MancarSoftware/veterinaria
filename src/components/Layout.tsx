@@ -52,13 +52,18 @@ export function Header() {
     return () => removeEventListener('scroll', updateHeader);
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle('menu-open', open);
+    return () => document.body.classList.remove('menu-open');
+  }, [open]);
+
   return <>
     <div className={`utility-bar ${scrolled ? 'hidden' : ''}`}>
       <span>{business.address} · {business.city}</span>
       <a href={`tel:${business.emergencyPhone}`}><Activity size={13}/> Emergencias · {business.emergencyPhone}</a>
     </div>
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-      <Link to="/" className="logo" aria-label="Alma Vet, inicio">
+      <Link to="/" className="logo" aria-label="Alma Vet, inicio" onClick={() => setOpen(false)}>
         <span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b>
       </Link>
       <nav className={open ? 'open' : ''} aria-label="Navegación principal">
