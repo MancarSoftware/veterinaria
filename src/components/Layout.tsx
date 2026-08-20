@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Activity, ArrowRight, Clock3, Mail, MapPin, Menu, MessageCircle, Phone, X } from 'lucide-react';
 import { business } from '../config/business';
@@ -25,7 +25,13 @@ function ScrollManager() {
   const { pathname, hash, key } = useLocation();
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => {
+    const previous = history.scrollRestoration;
+    history.scrollRestoration = 'manual';
+    return () => { history.scrollRestoration = previous; };
+  }, []);
+
+  useLayoutEffect(() => {
+    const moveToDestination = () => {
       if (hash) {
         const target = document.getElementById(decodeURIComponent(hash.slice(1)));
         if (target) {
@@ -34,8 +40,12 @@ function ScrollManager() {
         }
       }
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-    });
-    return () => cancelAnimationFrame(frame);
+    };
+
+    moveToDestination();
+    const frame = requestAnimationFrame(moveToDestination);
+    const timer = window.setTimeout(moveToDestination, 80);
+    return () => { cancelAnimationFrame(frame); clearTimeout(timer); };
   }, [pathname, hash, key]);
 
   return null;
