@@ -63,8 +63,12 @@ export function Header() {
   }, []);
 
   useEffect(() => {
+    document.documentElement.classList.toggle('menu-open', open);
     document.body.classList.toggle('menu-open', open);
-    return () => document.body.classList.remove('menu-open');
+    return () => {
+      document.documentElement.classList.remove('menu-open');
+      document.body.classList.remove('menu-open');
+    };
   }, [open]);
 
   const navigateFromHeader = () => {
