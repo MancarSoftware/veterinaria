@@ -85,7 +85,6 @@ export function Footer() {
       <div className="footer-hours"><h4>Visítanos</h4><div><MapPin/><span>{business.address}<br/>{business.city}</span></div><div><Clock3/><span>{business.openingHours.map(item => <small key={item}>{item}</small>)}<small className="emergency-hours">{business.emergencyHours}</small></span></div></div>
     </div>
     <div className="footer-bottom"><span>© 2026 Alma Vet. Información educativa; no sustituye una consulta veterinaria.</span><nav className="footer-legal" aria-label="Información legal"><Link to="/privacy">Privacidad y seguridad</Link><Link to="/terms">Términos de uso</Link></nav></div>
-    <div className="mobile-actions"><a href={`tel:${business.phone}`}><Phone/>Llamar</a><a href={generalWhatsApp}><MessageCircle/>WhatsApp</a></div>
   </footer>;
 }
 
