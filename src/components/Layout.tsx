@@ -4,9 +4,13 @@ import { Activity, ArrowRight, Clock3, Mail, MapPin, Menu, MessageCircle, Phone,
 import { business } from '../config/business';
 import { generalWhatsApp } from '../utils/whatsapp';
 
-const links = [
-  ['/', 'Inicio'], ['/services', 'Servicios'], ['/team', 'Equipo'],
-  ['/facilities', 'Espacios'], ['/pet-care', 'Cuidados'], ['/contact', 'Contacto'],
+const primaryLinks = [
+  ['/', 'Inicio'], ['/services', 'Servicios'], ['/team', 'Equipo'], ['/contact', 'Contacto'],
+];
+
+const footerLinks = [
+  ['/services', 'Servicios'], ['/team', 'Equipo'], ['/facilities', 'Espacios'],
+  ['/pet-care', 'Cuidados'], ['/contact', 'Contacto'],
 ];
 
 function TikTokIcon() {
@@ -86,7 +90,7 @@ export function Header() {
         <span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b>
       </Link>
       <nav className={open ? 'open' : ''} aria-label="Navegación principal">
-        {links.map(([to, label]) => <NavLink key={to} to={to} onClick={navigateFromHeader}>{label}</NavLink>)}
+        {primaryLinks.map(([to, label]) => <NavLink key={to} to={to} onClick={navigateFromHeader}>{label}</NavLink>)}
       </nav>
       <button className="menu" onClick={() => setOpen(!open)} aria-label={open ? 'Cerrar menú' : 'Abrir menú'}>{open ? <X/> : <Menu/>}</button>
     </header>
@@ -105,7 +109,7 @@ export function Footer() {
     </div>}
     <div className="footer-main">
       <div className="footer-brand"><div className="logo light"><span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b></div><p>{business.tagline}<br/>Cuidamos la salud y el vínculo que comparten.</p><div className="social"><a href={business.socials.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><InstagramIcon/></a><a href={business.socials.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"><FacebookIcon/></a><a href={business.socials.tiktok} target="_blank" rel="noreferrer" aria-label="TikTok"><TikTokIcon/></a></div></div>
-      <div className="footer-nav"><h4>Explora</h4>{links.slice(1).map(([to, label]) => <Link to={to} key={to} onClick={navigateToTop}>{label}<ArrowRight/></Link>)}</div>
+      <div className="footer-nav"><h4>Explora</h4>{footerLinks.map(([to, label]) => <Link to={to} key={to} onClick={navigateToTop}>{label}<ArrowRight/></Link>)}</div>
       <div className="footer-contact"><h4>Hablemos</h4><a href={`tel:${business.phone}`}><Phone/><span><small>Teléfono</small>{business.phone}</span></a><a href={generalWhatsApp}><MessageCircle/><span><small>WhatsApp</small>Escribir al equipo</span></a><a href={`mailto:${business.email}`}><Mail/><span><small>Correo</small>{business.email}</span></a></div>
       <div className="footer-hours"><h4>Visítanos</h4><div><MapPin/><span>{business.address}<br/>{business.city}</span></div><div><Clock3/><span>{business.openingHours.map(item => <small key={item}>{item}</small>)}<small className="emergency-hours">{business.emergencyHours}</small></span></div></div>
     </div>
