@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { business } from '../config/business';
+import Seo from '../components/Seo';
 
 const updated = '18 de agosto de 2026';
 
 function LegalPage({ eyebrow, title, intro, children }: { eyebrow: string; title: string; intro: string; children: React.ReactNode }) {
   return <>
+    <Seo title={`${title} | ${business.clinicName}`} description={intro}/>
     <header className="legal-hero">
       <span className="eyebrow light-text">{eyebrow}</span>
       <h1>{title}</h1>

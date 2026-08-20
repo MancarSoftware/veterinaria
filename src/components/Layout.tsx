@@ -118,5 +118,5 @@ export function Footer() {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <><ScrollManager/><Header/><main>{children}</main><Footer/></>;
+  return <><ScrollManager/><a className="skip-link" href="#main-content">Saltar al contenido</a><Header/><main id="main-content" tabIndex={-1}>{children}</main><Footer/></>;
 }
