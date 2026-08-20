@@ -67,17 +67,22 @@ export function Header() {
     return () => document.body.classList.remove('menu-open');
   }, [open]);
 
+  const navigateFromHeader = () => {
+    setOpen(false);
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  };
+
   return <>
     <div className={`utility-bar ${scrolled ? 'hidden' : ''}`}>
       <span>{business.address} · {business.city}</span>
       <a href={`tel:${business.emergencyPhone}`}><Activity size={13}/> Emergencias · {business.emergencyPhone}</a>
     </div>
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-      <Link to="/" className="logo" aria-label="Alma Vet, inicio" onClick={() => setOpen(false)}>
+      <Link to="/" className="logo" aria-label="Alma Vet, inicio" onClick={navigateFromHeader}>
         <span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b>
       </Link>
       <nav className={open ? 'open' : ''} aria-label="Navegación principal">
-        {links.map(([to, label]) => <NavLink key={to} to={to} onClick={() => setOpen(false)}>{label}</NavLink>)}
+        {links.map(([to, label]) => <NavLink key={to} to={to} onClick={navigateFromHeader}>{label}</NavLink>)}
       </nav>
       <button className="menu" onClick={() => setOpen(!open)} aria-label={open ? 'Cerrar menú' : 'Abrir menú'}>{open ? <X/> : <Menu/>}</button>
     </header>
@@ -87,6 +92,7 @@ export function Header() {
 export function Footer() {
   const { pathname } = useLocation();
   const showAppointmentCta = !['/contact', '/privacy', '/terms'].includes(pathname);
+  const navigateToTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 
   return <footer>
     {showAppointmentCta && <div className="footer-cta">
@@ -95,11 +101,11 @@ export function Footer() {
     </div>}
     <div className="footer-main">
       <div className="footer-brand"><div className="logo light"><span>AV</span><b>ALMA VET<small>CLÍNICA VETERINARIA</small></b></div><p>{business.tagline}<br/>Cuidamos la salud y el vínculo que comparten.</p><div className="social"><a href={business.socials.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><InstagramIcon/></a><a href={business.socials.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"><FacebookIcon/></a><a href={business.socials.tiktok} target="_blank" rel="noreferrer" aria-label="TikTok"><TikTokIcon/></a></div></div>
-      <div className="footer-nav"><h4>Explora</h4>{links.slice(1).map(([to, label]) => <Link to={to} key={to}>{label}<ArrowRight/></Link>)}</div>
+      <div className="footer-nav"><h4>Explora</h4>{links.slice(1).map(([to, label]) => <Link to={to} key={to} onClick={navigateToTop}>{label}<ArrowRight/></Link>)}</div>
       <div className="footer-contact"><h4>Hablemos</h4><a href={`tel:${business.phone}`}><Phone/><span><small>Teléfono</small>{business.phone}</span></a><a href={generalWhatsApp}><MessageCircle/><span><small>WhatsApp</small>Escribir al equipo</span></a><a href={`mailto:${business.email}`}><Mail/><span><small>Correo</small>{business.email}</span></a></div>
       <div className="footer-hours"><h4>Visítanos</h4><div><MapPin/><span>{business.address}<br/>{business.city}</span></div><div><Clock3/><span>{business.openingHours.map(item => <small key={item}>{item}</small>)}<small className="emergency-hours">{business.emergencyHours}</small></span></div></div>
     </div>
-    <div className="footer-bottom"><span>© 2026 Alma Vet. Información educativa; no sustituye una consulta veterinaria.</span><nav className="footer-legal" aria-label="Información legal"><Link to="/privacy">Privacidad y seguridad</Link><Link to="/terms">Términos de uso</Link></nav></div>
+    <div className="footer-bottom"><span>© 2026 Alma Vet. Información educativa; no sustituye una consulta veterinaria.</span><nav className="footer-legal" aria-label="Información legal"><Link to="/privacy" onClick={navigateToTop}>Privacidad y seguridad</Link><Link to="/terms" onClick={navigateToTop}>Términos de uso</Link></nav></div>
   </footer>;
 }
 
